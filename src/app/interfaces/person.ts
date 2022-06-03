@@ -1,10 +1,8 @@
 export interface Person {
   name: String;
   surname: String;
-  age: any;
+  associate:number;
   dni: String;
-  birthday: any;
-  favouriteColour: String;
+  telephone?: Number;
   gender: String;
-  notes: String;
 }

@@ -13,8 +13,6 @@ export class PersonComponent implements OnInit {
   genderList = [
     { id: 1, value: 'Hombre' },
     { id: 2, value: 'Mujer' },
-    { id: 3, value: 'No especificado' },
-    { id: 4, value: 'Otro' },
   ];
 
   do: String = 'insert';
@@ -22,15 +20,23 @@ export class PersonComponent implements OnInit {
 
   contacts: Array<Person> = [];
 
+  calculateNextAssociateNumber(){
+    if(this.contacts.length>0){
+      let associate = this.contacts.map( function (x){
+       return x.associate;
+      }).reduce((a,b)=>Math.max(a,b));
+      console.log(associate);
+       return associate + 1 ;
+    } else return 0;
+  }
+
   contact: Person = {
     name: '',
     surname: '',
-    age: '',
+    associate: this.calculateNextAssociateNumber(),
     dni: '',
-    birthday: '',
-    favouriteColour: '',
+    telephone: undefined,
     gender: '',
-    notes: '',
   };
 
   constructor(private datePipe: DatePipe) {}
@@ -38,43 +44,31 @@ export class PersonComponent implements OnInit {
   ngOnInit(): void {}
   add(form: NgForm) {
     if (this.do === 'insert') {
-      this.contact.birthday = this.datePipe.transform(
-        this.contact.birthday,
-        'dd/MM/yyyy'
-      );
+       
+
       this.contacts.push(this.contact);
     } else {
-      this.contact.birthday = this.datePipe.transform(
-        this.contact.birthday,
-        'dd/MM/yyyy'
-      );
+      
       this.contacts[this.position] = this.contact;
       this.do = 'insert';
     }
     this.contact = {
       name: '',
       surname: '',
-      age: '',
+      associate: this.calculateNextAssociateNumber(),
       dni: '',
-      birthday: '',
-      favouriteColour: '',
+      telephone: undefined,
       gender: '',
-      notes: '',
     };
     form.resetForm();
   }
 
   delete(delPosition: number): void {
     this.contacts.splice(delPosition, 1);
+    this.contact.associate= this.calculateNextAssociateNumber();
   }
   update(upPosition: number): void {
     this.contact = this.contacts[upPosition];
-    var birthDate = this.contact.birthday.split('/');
-    this.contact.birthday = new Date(
-      parseInt(birthDate[2], 10),
-      parseInt(birthDate[1], 10) - 1,
-      parseInt(birthDate[0], 10)
-    );
     this.do = 'update';
     this.position = upPosition;
   }

@@ -32,22 +32,6 @@
           />
         </mat-form-field>
         <mat-form-field>
-          <mat-label>
-            <mat-icon>edit</mat-icon>
-            Edad</mat-label
-          >
-          <input
-            required
-            matInput
-            type="number"
-            max="125"
-            min="0"
-            placeholder="Edad"
-            name="age"
-            [(ngModel)]="contact.age"
-          />
-        </mat-form-field>
-        <mat-form-field>
           <mat-label> DNI</mat-label>
           <input
             required
@@ -59,75 +43,35 @@
             [(ngModel)]="contact.dni"
           />
         </mat-form-field>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <div class="controles-container">
-        <div class="add-bottom-padding bottom-container">
-          <mat-form-field>
-            <mat-label> Género</mat-label>
-            <mat-select
-              placeholder="Género"
-              name="gender"
-              [(ngModel)]="contact.gender"
-            >
-              <ng-container *ngFor="let gender of genderList">
-                <mat-option value="{{ gender.value }}">{{
-                  gender.value
-                }}</mat-option>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="bottom-container">
-          <mat-form-field>
-            <mat-label>
-              <mat-icon>palette</mat-icon>
-              Color Favorito</mat-label
-            >
-            <input
-              required
-              matInput
-              type="text"
-              minlength="3"
-              placeholder="Color favorito"
-              name="favouriteColour"
-              [(ngModel)]="contact.favouriteColour"
-            />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>
-              <mat-icon>cake</mat-icon>
-              Fecha de Cumpleaños</mat-label
-            >
-            <input
-              required
-              matInput
-              [matDatepicker]="picker"
-              placeholder="Fecha Cumpleaños"
-              name="birthday"
-              [(ngModel)]="contact.birthday"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>
-              <mat-icon> local_pizza</mat-icon>
-              Notas</mat-label
-            >
-            <input
-              matInput
-              type="text"
-              placeholder="Notas"
-              name="notes"
-              [(ngModel)]="contact.notes"
-            />
-          </mat-form-field>
-        </div>
+        <mat-form-field>
+          <mat-label>
+            <mat-icon>phone</mat-icon>
+            Teléfono</mat-label
+          >
+          <input
+            required
+            matInput
+            pattern="[0-9]{9}"
+            type="text"
+            placeholder="666666666"
+            [(ngModel)]="contact.telephone"
+            name="telephone"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label> Género</mat-label>
+          <mat-select
+            placeholder="Género"
+            name="gender"
+            [(ngModel)]="contact.gender"
+          >
+            <ng-container *ngFor="let gender of genderList">
+              <mat-option value="{{ gender.value }}">{{
+                gender.value
+              }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
         <div class="button-row">
           <button
             mat-raised-button
@@ -141,6 +85,12 @@
         </div>
       </div>
     </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="controles-container">
+        <div class="add-bottom-padding bottom-container"></div>
+        <div class="bottom-container"></div>
+      </div>
+    </mat-grid-tile>
   </mat-grid-list>
 </form>
 <mat-divider></mat-divider>
@@ -149,12 +99,10 @@
   <mat-card-content class="card-content">
     <p>Nombre: {{ contact.name }}</p>
     <p>Apellidos: {{ contact.surname }}</p>
-    <p>Edad: {{ contact.age }}</p>
+    <p>Nº de Socio: {{ contact.associate }}</p>
     <p>DNI: {{ contact.dni }}</p>
-    <p>Cumpleaños: {{ contact.birthday }}</p>
-    <p>Color Favorito: {{ contact.favouriteColour }}</p>
+    <p>Teléfono: {{ contact.telephone }}</p>
     <p>Género: {{ contact.gender }}</p>
-    <p>Notas: {{ contact.notes }}</p>
   </mat-card-content>
 </mat-card>
 <mat-divider></mat-divider>
@@ -163,13 +111,10 @@
   <mat-list>
     <mat-list-item *ngFor="let cont of contacts; let i = index">
       <h3 class="h3 person">{{ cont.name }} {{ cont.surname }}</h3>
-      <p class="person">{{ cont.age }}</p>
+      <p class="person">{{ cont.associate }}</p>
       <p class="person">{{ cont.dni }}</p>
-      <p class="person">{{ cont.birthday }}</p>
-      <p class="person">{{ cont.favouriteColour }}</p>
       <p class="person">{{ cont.gender }}</p>
-      <p class="person">{{ cont.notes }}</p>
-
+      <p class="person">{{ cont.telephone }}</p>
       <button
         class="button list-button button-green"
         mat-flat-button
